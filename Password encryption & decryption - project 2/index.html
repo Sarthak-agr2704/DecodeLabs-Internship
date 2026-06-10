@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="DecodeLabs Cryptographic Engine - Basic Encryption & Decryption tool implementing secure transposition and data confidentiality metrics.">
+  <title>DecodeLabs | Cryptographic Engine</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Background Grid Effect -->
+  <div class="cyber-grid"></div>
+  <div class="glow-orb orb-1"></div>
+  <div class="glow-orb orb-2"></div>
+
+  <div class="app-container">
+    
+    <!-- Top Navigation Bar / Security Header -->
+    <header class="security-header">
+      <div class="logo-area">
+        <div class="logo-shield">
+          <svg viewBox="0 0 24 24" width="24" height="24">
+            <path fill="currentColor" d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <h1>DECODED<span>LABS</span></h1>
+          <p>Cryptographic Operations Division</p>
+        </div>
+      </div>
+      
+      <div class="security-status-widget">
+        <div class="status-indicator">
+          <span class="status-dot green-glow"></span>
+          <span class="status-label">ENCLAVE SECURE</span>
+        </div>
+        <div class="status-meta">
+          <span>ALGORITHM: <strong>ROT-N / CAESAR</strong></span>
+          <span>KEY_SIZE: <strong>5-BIT (VULNERABLE)</strong></span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="workspace-grid">
+      
+      <!-- Left Panel: Cryptographic Operations Center -->
+      <section class="ops-card glass-panel" id="ops-center">
+        <div class="panel-header">
+          <span class="header-icon">⚙️</span>
+          <h2>Cryptographic Engine</h2>
+          <span class="header-badge">IPO_CYCLE</span>
+        </div>
+
+        <div class="panel-body">
+          <!-- Key / Shift Control -->
+          <div class="control-group">
+            <div class="control-label-row">
+              <label for="shift-slider">Symmetric Shift Key (n)</label>
+              <div class="shift-value-display" id="shift-value">3</div>
+            </div>
+            <div class="slider-container">
+              <button class="adjust-btn" id="shift-dec" aria-label="Decrease Shift">-</button>
+              <input type="range" id="shift-slider" min="0" max="25" value="3" class="neon-slider">
+              <button class="adjust-btn" id="shift-inc" aria-label="Increase Shift">+</button>
+            </div>
+            <span class="control-help">Determines the positive character displacement value in the alphabet.</span>
+          </div>
+
+          <!-- Plaintext Area -->
+          <div class="text-group">
+            <div class="text-label-row">
+              <label for="plaintext-input">Plaintext Input (Data in Transit)</label>
+              <button class="clear-btn" id="clear-plaintext">Clear</button>
+            </div>
+            <div class="textarea-wrapper">
+              <textarea id="plaintext-input" placeholder="Type plaintext message to secure..." maxlength="1000" rows="5"></textarea>
+              <div class="char-counter"><span id="plaintext-count">0</span> / 1000</div>
+            </div>
+          </div>
+
+          <!-- Operation Direction Indicator -->
+          <div class="crypto-flow-divider">
+            <div class="flow-line"></div>
+            <div class="flow-arrows">
+              <span class="arrow encrypting-arrow">▼</span>
+              <span class="arrow decrypting-arrow">▲</span>
+            </div>
+            <div class="flow-line"></div>
+          </div>
+
+          <!-- Ciphertext Area -->
+          <div class="text-group">
+            <div class="text-label-row">
+              <label for="ciphertext-input">Ciphertext Output (Obfuscated Payload)</label>
+              <button class="clear-btn" id="clear-ciphertext">Clear</button>
+            </div>
+            <div class="textarea-wrapper">
+              <textarea id="ciphertext-input" placeholder="Type ciphertext to reverse..." maxlength="1000" rows="5"></textarea>
+              <div class="char-counter"><span id="ciphertext-count">0</span> / 1000</div>
+            </div>
+          </div>
+
+          <!-- Symmetric Actions -->
+          <div class="action-footer">
+            <p class="enclave-warning">
+              ⚠️ <strong>Single Point of Failure:</strong> The same key performs both operations. Anyone intercepting the key compromises the channel.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Panel: Intelligence & Analysis Dash -->
+      <div class="analysis-column">
+        
+        <!-- Interactive IPO Mathematical Pipeline -->
+        <section class="analysis-card glass-panel" id="ipo-card">
+          <div class="panel-header">
+            <span class="header-icon">🧮</span>
+            <h2>IPO Pipeline Visualizer</h2>
+            <span class="header-badge">REAL_TIME</span>
+          </div>
+          <div class="panel-body">
+            <p class="info-desc">Select a character from your input to trace its modular transformation step-by-step.</p>
+            
+            <div class="letter-picker-row">
+              <span class="picker-label">Trace Character:</span>
+              <div class="picker-container" id="picker-wrapper">
+                <!-- Javascript will inject letter tokens here -->
+                <span class="picker-placeholder">Enter text to start mathematical tracing...</span>
+              </div>
+            </div>
+
+            <!-- Pipeline Visual Grid -->
+            <div class="ipo-pipeline-grid" id="pipeline-visual">
+              
+              <!-- Input Stage -->
+              <div class="pipeline-node" id="node-input">
+                <div class="node-label">INPUT</div>
+                <div class="node-box neon-border">
+                  <div class="node-title">Character</div>
+                  <div class="node-val" id="val-char-in">-</div>
+                </div>
+              </div>
+
+              <!-- Conversion Stage -->
+              <div class="pipeline-node" id="node-ascii">
+                <div class="node-label">PROCESS: STEP 1</div>
+                <div class="node-box">
+                  <div class="node-title">ASCII ord()</div>
+                  <div class="node-val" id="val-ascii-in">-</div>
+                </div>
+              </div>
+
+              <!-- Base Normalization -->
+              <div class="pipeline-node" id="node-base">
+                <div class="node-label">PROCESS: STEP 2</div>
+                <div class="node-box">
+                  <div class="node-title">Base Index</div>
+                  <div class="node-val" id="val-index-in">-</div>
+                  <div class="node-formula" id="val-formula-base">-</div>
+                </div>
+              </div>
+
+              <!-- Key Shift -->
+              <div class="pipeline-node" id="node-shift">
+                <div class="node-label">PROCESS: STEP 3</div>
+                <div class="node-box">
+                  <div class="node-title">Shift Shift (+n)</div>
+                  <div class="node-val" id="val-shift-out">-</div>
+                  <div class="node-formula" id="val-formula-shift">-</div>
+                </div>
+              </div>
+
+              <!-- Modulo wrap -->
+              <div class="pipeline-node" id="node-wrap">
+                <div class="node-label">PROCESS: STEP 4</div>
+                <div class="node-box neon-border-amber">
+                  <div class="node-title">Modulo (% 26)</div>
+                  <div class="node-val" id="val-wrap-out">-</div>
+                  <div class="node-formula" id="val-formula-wrap">-</div>
+                </div>
+              </div>
+
+              <!-- Denormalization -->
+              <div class="pipeline-node" id="node-denorm">
+                <div class="node-label">PROCESS: STEP 5</div>
+                <div class="node-box">
+                  <div class="node-title">New ASCII</div>
+                  <div class="node-val" id="val-ascii-out">-</div>
+                  <div class="node-formula" id="val-formula-denorm">-</div>
+                </div>
+              </div>
+
+              <!-- Output Stage -->
+              <div class="pipeline-node" id="node-output">
+                <div class="node-label">OUTPUT</div>
+                <div class="node-box neon-border-green">
+                  <div class="node-title">Cipher Char chr()</div>
+                  <div class="node-val" id="val-char-out">-</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        <!-- Tabs Navigation for Frequency Analysis vs Brute Force -->
+        <section class="analysis-card glass-panel" id="security-tabs-card">
+          <div class="tabs-nav">
+            <button class="tab-btn active" data-tab="freq-tab">📊 Frequency Analysis</button>
+            <button class="tab-btn" data-tab="brute-tab">🔑 Brute-Force Solver</button>
+            <button class="tab-btn" data-tab="vulnerability-tab">🛡️ Vulnerability Report</button>
+          </div>
+
+          <div class="tabs-content">
+            <!-- Tab 1: Frequency Analysis -->
+            <div class="tab-pane active" id="freq-tab">
+              <p class="tab-desc">Comparing plaintext vs ciphertext character distributions. Modulo shift preserves individual frequency signatures (Pattern Preservation).</p>
+              
+              <div class="chart-container">
+                <!-- We will render a custom High-Perf canvas chart -->
+                <canvas id="freq-chart" width="480" height="200"></canvas>
+              </div>
+              
+              <div class="chart-legend">
+                <div class="legend-item"><span class="legend-color pt-color"></span> Plaintext Frequency</div>
+                <div class="legend-item"><span class="legend-color ct-color"></span> Ciphertext Frequency</div>
+              </div>
+            </div>
+
+            <!-- Tab 2: Brute Force Solver -->
+            <div class="tab-pane" id="brute-tab">
+              <p class="tab-desc">Because the key space is restricted to only 25 possibilities, Caesar Ciphers can be solved instantly. View all possible translations below:</p>
+              
+              <div class="brute-force-table-wrapper">
+                <table class="brute-table" id="brute-table-body">
+                  <thead>
+                    <tr>
+                      <th style="width: 15%">Shift</th>
+                      <th style="width: 65%">Decrypted Text Candidate</th>
+                      <th style="width: 20%">Assessment</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td colspan="3" class="empty-table-msg">Enter a ciphertext message to test key space recovery.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Tab 3: Vulnerability Report -->
+            <div class="tab-pane" id="vulnerability-tab">
+              <div class="vuln-report">
+                <div class="vuln-severity high">
+                  <span class="severity-tag">CRITICAL RISK</span>
+                  <h3>Frequency Pattern Preservation</h3>
+                </div>
+                <p>Observe the Frequency Analysis chart above. The ciphertext letter distribution has <strong>exactly the same shape</strong> as the plaintext, shifted horizontally. Since the letter 'E' is the most frequent character in standard English texts, a simple frequency search instantly reveals the key.</p>
+                
+                <div class="vuln-severity medium">
+                  <span class="severity-tag">MEDIUM RISK</span>
+                  <h3>Tiny Key Space (5-Bit Entropy)</h3>
+                </div>
+                <p>With only 25 keys, a computer can check all decryption combinations in microseconds. This is vulnerable to brute-force attacks.</p>
+
+                <div class="remediation-box">
+                  <h4>🔒 Cryptographic Evolution</h4>
+                  <p>To fix these issues, modern algorithms (like <strong>AES-256</strong>) introduce:</p>
+                  <ul>
+                    <li><strong>Confusion:</strong> Making the relationship between the key and the ciphertext as complex as possible.</li>
+                    <li><strong>Diffusion:</strong> Spreading the influence of individual plaintext characters over the entire ciphertext payload.</li>
+                    <li><strong>Large Key Space:</strong> 256-bit keys yield $1.15 \times 10^{77}$ combinations, resisting brute-force.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <p>DecodeLabs Security Training Enclave - Confidential - Intern Course Project 2</p>
+    </footer>
+
+  </div>
+
+  <!-- Javascript Core Logic -->
+  <script src="app.js"></script>
+</body>
+</html>
