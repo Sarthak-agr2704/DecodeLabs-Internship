@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DecodeLabs // Password Entropy Terminal</title>
+    <meta name="description" content="DecodeLabs Password Strength Checker and Entropy Analysis Engine. Evaluate password complexity, search space size, and Shannon entropy using constant-time comparison algorithms.">
+    <meta name="keywords" content="DecodeLabs, password strength checker, password entropy, cybersecurity, constant time check, shackle lock, timing attack defense">
+    <!-- Google Fonts: Space Grotesk & Orbitron for futuristic look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Scanline & Glitch Background Overlay -->
+    <div class="scanlines"></div>
+    <div class="grid-overlay"></div>
+    <div class="ambient-glow"></div>
+
+    <div class="terminal-container">
+        <!-- Terminal Header -->
+        <header class="terminal-header">
+            <div class="header-brand">
+                <span class="brand-logo">//</span>
+                <span class="brand-name">DECODELABS</span>
+                <span class="brand-division">SECURITY UTILITY</span>
+            </div>
+            <div class="header-title-container">
+                <h1 class="header-title">SHACKLE MODULE PORT: 01</h1>
+            </div>
+            <div class="header-status">
+                <button type="button" id="btn-audio" class="control-btn" title="Toggle Synthesizer Audio (Muted)">
+                    <svg class="audio-icon" id="audio-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <!-- Muted speaker icon by default -->
+                        <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+                        <line x1="23" y1="9" x2="17" y2="15"/>
+                        <line x1="17" y1="9" x2="23" y2="15"/>
+                    </svg>
+                </button>
+                <div class="status-indicator-dot pulsing"></div>
+                <div class="status-text" id="system-status-text">DEFIANT STATUS: ONLINE</div>
+            </div>
+        </header>
+
+        <!-- Main Terminal Dashboard -->
+        <main class="terminal-dashboard">
+            
+            <!-- LEFT PANEL: Security Logic & Controls -->
+            <section class="dashboard-panel control-panel" id="control-unit">
+                <div class="panel-header">
+                    <span class="panel-num">01</span>
+                    <h2>VAL_GATEKEEPER_POLICY</h2>
+                </div>
+                
+                <div class="panel-content">
+                    <div class="input-group">
+                        <label for="password-input">RAW BYTE STREAM INPUT</label>
+                        <div class="password-field-wrapper">
+                            <input type="password" id="password-input" placeholder="Type password..." autocomplete="off" spellcheck="false">
+                            <button type="button" id="btn-generate" class="inner-btn" title="Generate Secure Entropy">
+                                <svg class="gen-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+                                </svg>
+                            </button>
+                            <button type="button" id="toggle-visibility" class="inner-btn" aria-label="Toggle password visibility">
+                                <svg class="eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                    <circle cx="12" cy="12" r="3"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Policy Checklist -->
+                    <div class="policy-checklist">
+                        <h3>MINIMUM ENTROPY REQUIREMENTS</h3>
+                        <ul>
+                            <li id="rule-length" class="policy-rule">
+                                <span class="rule-led"></span>
+                                <span class="rule-text">Length verification (>= 8 characters)</span>
+                            </li>
+                            <li id="rule-upper" class="policy-rule">
+                                <span class="rule-led"></span>
+                                <span class="rule-text">Uppercase character set [A-Z]</span>
+                            </li>
+                            <li id="rule-digit" class="policy-rule">
+                                <span class="rule-led"></span>
+                                <span class="rule-text">Numeric digit character set [0-9]</span>
+                            </li>
+                            <li id="rule-symbol" class="policy-rule">
+                                <span class="rule-led"></span>
+                                <span class="rule-text">Special symbols [ASCII Symbols]</span>
+                            </li>
+                            <li id="rule-unicode" class="policy-rule">
+                                <span class="rule-led"></span>
+                                <span class="rule-text">Unicode curveball expansion</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Policy Status Bar -->
+                    <div class="status-summary">
+                        <div class="status-row">
+                            <span>POL_VERDICT:</span>
+                            <span id="policy-verdict" class="status-fail">REJECTED</span>
+                        </div>
+                        <div class="status-bar-bg">
+                            <div id="policy-status-bar" class="status-bar-fill fill-fail"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MIDDLE PANEL: Shackle Mechanism Visualization -->
+            <section class="dashboard-panel visualization-panel" id="shackle-mechanism">
+                <div class="panel-header">
+                    <span class="panel-num">02</span>
+                    <h2>SHACKLE_LOCK_MECHANISM</h2>
+                </div>
+
+                <div class="panel-content shackle-center">
+                    <!-- Dynamic Lock SVG -->
+                    <div class="shackle-wrapper">
+                        <svg class="shackle-svg" viewBox="0 0 200 200" width="200" height="200">
+                            <defs>
+                                <radialGradient id="lock-glow" cx="50%" cy="50%" r="50%">
+                                    <stop offset="0%" stop-color="var(--accent-glow)" stop-opacity="0.3" />
+                                    <stop offset="100%" stop-color="var(--accent-glow)" stop-opacity="0" />
+                                </radialGradient>
+                            </defs>
+                            
+                            <!-- Glowing background circle -->
+                            <circle cx="100" cy="100" r="85" fill="url(#lock-glow)" class="lock-bg-pulse" />
+                            
+                            <!-- Outer decorative HUD ring -->
+                            <circle cx="100" cy="100" r="75" fill="none" stroke="var(--accent-dim)" stroke-width="1.5" stroke-dasharray="10 5" class="hud-ring-rotate" />
+                            <circle cx="100" cy="100" r="70" fill="none" stroke="var(--accent-dim)" stroke-width="0.5" stroke-dasharray="2 4" />
+                            
+                            <!-- Padlock Group -->
+                            <g class="padlock-group">
+                                <!-- Lock Shackle (moving part) -->
+                                <path id="shackle-arm" d="M70,95 V60 C70,42 82,30 100,30 C118,30 130,42 130,60 V95" 
+                                      fill="none" stroke="var(--accent-color)" stroke-width="12" stroke-linecap="round" />
+                                
+                                <!-- Lock Body -->
+                                <rect x="52" y="85" width="96" height="75" rx="10" fill="var(--bg-panel)" stroke="var(--accent-color)" stroke-width="4" />
+                                
+                                <!-- Screws on the lock body -->
+                                <circle cx="62" cy="95" r="3" fill="var(--accent-dim)" />
+                                <circle cx="138" cy="95" r="3" fill="var(--accent-dim)" />
+                                <circle cx="62" cy="150" r="3" fill="var(--accent-dim)" />
+                                <circle cx="138" cy="150" r="3" fill="var(--accent-dim)" />
+                                
+                                <!-- Decorative circuit lines on lock body -->
+                                <path class="lock-circuits" d="M 68,122 H 84 M 116,122 H 132 M 100,102 V 108" fill="none" stroke="var(--accent-dim)" stroke-width="2" stroke-linecap="round" />
+                                
+                                <!-- Inner HUD element on lock body -->
+                                <circle cx="100" cy="122" r="14" fill="none" stroke="var(--accent-dim)" stroke-width="2" />
+                                <path id="lock-core" d="M100,114 V124" stroke="var(--accent-color)" stroke-width="4" stroke-linecap="round" />
+                                <circle cx="100" cy="127" r="3" fill="var(--accent-color)" />
+                            </g>
+                        </svg>
+                    </div>
+
+                    <!-- Real-time Shackle Status Label -->
+                    <div class="shackle-state">
+                        <div class="shackle-status-title">SHACKLE STATUS:</div>
+                        <div id="shackle-status-value" class="shackle-status-text text-fail">DISENGAGED (WEAK)</div>
+                        <div id="shackle-status-details" class="shackle-status-subtext">Waiting for entropy validation...</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- RIGHT PANEL: Entropy Statistics & Tumbler -->
+            <section class="dashboard-panel statistics-panel" id="entropy-engine">
+                <div class="panel-header">
+                    <span class="panel-num">03</span>
+                    <h2>ENTROPY_ANALYSIS_ENGINE</h2>
+                </div>
+
+                <div class="panel-content">
+                    <!-- Real-time Stats -->
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <span class="stat-label">ENTROPY BITS</span>
+                            <span id="stat-entropy" class="stat-value text-fail">0.00</span>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-label">POOL SIZE (R)</span>
+                            <span id="stat-pool" class="stat-value text-fail">0</span>
+                        </div>
+                    </div>
+
+                    <!-- Crack Time Estimator -->
+                    <div class="crack-estimator">
+                        <h3>ESTIMATED CRACK TIME</h3>
+                        <div class="estimator-table">
+                            <div class="estimator-row">
+                                <span class="est-device">Consumer PC:</span>
+                                <span id="crack-desktop" class="est-time text-fail">Instant</span>
+                            </div>
+                            <div class="estimator-row">
+                                <span class="est-device">GPU Cluster (4090s):</span>
+                                <span id="crack-cluster" class="est-time text-fail">Instant</span>
+                            </div>
+                            <div class="estimator-row">
+                                <span class="est-device">Quantum / Government:</span>
+                                <span id="crack-quantum" class="est-time text-fail">Instant</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Binary Tumbler Array -->
+                    <div class="tumbler-container">
+                        <h3>BINARY TUMBLER ARRAY</h3>
+                        <div class="tumbler-grid" id="tumbler-grid">
+                            <!-- Populated dynamically by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Cryptographic Details -->
+                    <div class="crypto-details">
+                        <div class="crypto-row">
+                            <span class="crypto-label">LEAK_DB_CHECK:</span>
+                            <span id="crypto-leak" class="crypto-val status-pass">CLEAR</span>
+                        </div>
+                        <div class="crypto-row">
+                            <span class="crypto-label">TIME_COMPLEXITY:</span>
+                            <span class="crypto-val">$O(n)$ Linear</span>
+                        </div>
+                        <div class="crypto-row">
+                            <span class="crypto-label">TIMING_DEFENSE:</span>
+                            <span class="crypto-val text-cyan">Constant Time (`hmac`)</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Cyber Console Log Panel -->
+        <section class="console-log-panel">
+            <div class="console-header">
+                <span class="console-title">// SYSTEM_CONSOLE_LOG_RECORD</span>
+                <span class="console-status">LIVE STREAM</span>
+            </div>
+            <div class="console-body" id="console-log-output">
+                <!-- Log entries added dynamically by JS -->
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="terminal-footer">
+            <div class="footer-left">DECODELABS // INDUSTRIAL SECURE KICK - VERSION 1.1.0</div>
+            <div class="footer-center">WARNING: DATA SCRAPING MITIGATED VIA VOLATILE MEMORY PURGING</div>
+            <div class="footer-right">&copy; 2026 DECODELABS SHACKLE SYSTEMS</div>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
